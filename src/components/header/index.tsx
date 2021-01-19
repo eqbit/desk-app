@@ -4,7 +4,6 @@ import { electronApi } from '../../api/electron';
 import styles from './index.module.scss';
 
 const cn = classNamesBind.bind(styles);
-const CLASS_NAME = 'header';
 
 export const Header = () => {
   const handleMinimizeClick = () => {
@@ -16,13 +15,15 @@ export const Header = () => {
   };
 
   return (
-    <header className={cn(CLASS_NAME)}>
-      <div className={cn(`${CLASS_NAME}__draggable-area`)}>
-        LOGO
+    <header className={cn('header')}>
+      <div className={cn(`header__draggable-area`)}>
+        <div className={cn('header__logo')}>
+          Quick.tf automatic
+        </div>
       </div>
 
       <button
-        className={cn(`${CLASS_NAME}__button`, `${CLASS_NAME}__button--minimize`)}
+        className={cn(`header__button`, `header__button--minimize`)}
         onClick={handleMinimizeClick}
       >
         <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +32,7 @@ export const Header = () => {
       </button>
 
       <button
-        className={cn(`${CLASS_NAME}__button`, `${CLASS_NAME}__button--close`)}
+        className={cn(`header__button`, `header__button--close`)}
         onClick={handleCloseClick}
       >
         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

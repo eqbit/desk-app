@@ -1,6 +1,6 @@
 import { BrowserWindow, Menu } from 'electron';
 import * as isDev from 'electron-is-dev';
-import * as path from "path";
+import * as path from 'path';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -15,7 +15,7 @@ const createMainWindow = () => {
       nodeIntegration: false,
       backgroundThrottling: false,
       contextIsolation: true,
-      preload:path.join( __dirname, '..', 'preload.js'),
+      preload: path.join(__dirname, '..', 'preload.js'),
     },
   });
 
@@ -24,18 +24,21 @@ const createMainWindow = () => {
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000/index.html');
   } else {
-    mainWindow.loadURL(`file://${__dirname}/../index.html`);
+    mainWindow.loadURL(`file://${__dirname}/../../index.html`);
   }
 
   mainWindow.on('closed', () => mainWindow = null);
 
   // Hot Reloading
   if (isDev) {
-    require('electron-reload')(__dirname, {
-      electron: path.join(__dirname, '..', '..', '..', 'node_modules', '.bin', 'electron'),
-      forceHardReset: true,
-      hardResetMethod: 'exit'
-    });
+    require('electron-reload')(
+      path.join(__dirname, '..'),
+      {
+        electron: path.join(__dirname, '..', '..', '..', 'node_modules', '.bin', 'electron'),
+        forceHardReset: true,
+        hardResetMethod: 'exit'
+      }
+    );
 
     // mainWindow.webContents.openDevTools();
   }
