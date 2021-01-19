@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 
@@ -10,12 +10,12 @@ function createWindow() {
     height: 800,
     resizable: false,
     autoHideMenuBar: true,
+    frame: false,
     webPreferences: {
-      nodeIntegration: true,
-      webSecurity: false,
-      allowRunningInsecureContent: true,
+      nodeIntegration: false,
       backgroundThrottling: false,
       contextIsolation: true,
+      preload: __dirname + '/preload.js'
     },
   });
 
@@ -36,8 +36,18 @@ function createWindow() {
       forceHardReset: true,
       hardResetMethod: 'exit'
     });
+
+    // win.webContents.openDevTools();
   }
 }
+
+ipcMain.on('minimize', () => {
+  win!.minimize();
+});
+
+ipcMain.on('close', () => {
+  win!.close();
+});
 
 app.on('ready', createWindow);
 
